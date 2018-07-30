@@ -1,0 +1,7 @@
+{
+  "run_list":[
+    "recipe[redis::default]",
+    "recipe[redis::slave]",
+    "recipe[redis::sentinel]"
+  ]
+}

@@ -1,0 +1,34 @@
+# Note that Redis will write a pid file in /var/run/redis.pid when daemonized.
+daemonize yes
+
+# When run as a daemon, Redis write a pid file in /var/run/redis.pid by default.
+pidfile <%= @redis[:pid_file] %>
+
+# Accept connections on the specified port, default is 6379
+port <%= @redis_server[:port] %>
+
+# specified all the interfaces will listen for connections.
+bind <%= @redis_server[:addr] %>
+
+# Close the connection after a client is idle for N seconds.
+timeout <%= @redis_server[:timeout] %>
+
+# Save the DB on disk:
+## save <seconds> <changes>
+##Will save the DB if both the given number of seconds and the given
+#number of write operations against the DB occurred.
+#
+<% @redis[:saves].each do |save| %>
+<%= "save #{save[0]} #{save[1]}" %>
+<% end %>
+
+# The filename where to dump the DB
+dbfilename <%= @redis[:db_basename] %>
+
+# Note that you must specify a directory not a file name.
+dir <%= @redis[:data_dir] %>
+
+<% if @redis[:slave] == "yes" %>
+slaveof <%= @redis[:master_server] %> <%= @redis[:master_port] %>
+slave-priority <%= @priority %>
+<% end %>
