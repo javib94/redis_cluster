@@ -30,5 +30,4 @@ dir <%= @redis[:data_dir] %>
 
 <% if @redis[:slave] == "yes" %>
 slaveof <%= @redis[:master_server] %> <%= @redis[:master_port] %>
-slave-priority <%= @priority %>
 <% end %>

@@ -4,8 +4,10 @@ sentinel monitor <%= @master_name %> 127.0.0.1 6379 1
 sentinel down-after-milliseconds  <%= @master_name %> 5000
 sentinel config-epoch  <%= @master_name %> 4
 sentinel leader-epoch  <%= @master_name %> 6
-sentinel known-slave  <%= @master_name %> 127.0.0.1 6380
-sentinel known-slave  <%= @master_name %> 127.0.0.1 6381
-sentinel known-slave  <%= @master_name %> 127.0.0.1 6382
+
+<% @instance.each do | i | %>
+sentinel known-slave  <%= @master_name %> <%@i['private_ip']%> <%= @port %>
+<% end %>
+
 sentinel failover-timeout <%= @master_name %> 1000
 sentinel current-epoch 6
