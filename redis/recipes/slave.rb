@@ -1,7 +1,7 @@
 
 
 
-server = search("aws_opsworks_instance,",  "hostname:masterserver")
+server = search("aws_opsworks_instance",  "hostname:masterserver")
 node.default[:redis][:slave] = "yes"
 default[:redis][:master_server] = instance['public_ip']
 
