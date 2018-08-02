@@ -11,3 +11,8 @@ template "#{node[:redis][:conf_dir]}/redis.conf" do
   mode          "0644"
   variables     :redis => node[:redis], :redis_server => node[:redis][:server], :master_server => node[:redis][:master_server]
 end
+
+execute 'redis-sentinel-run' do
+  command "redis-sentinel #{node[:redis][:conf_dir]}/sentinel.conf"
+  user 'root'
+end
