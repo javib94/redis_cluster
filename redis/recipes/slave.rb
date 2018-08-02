@@ -1,7 +1,8 @@
 
 server = search("aws_opsworks_instance",  "hostname:masterserver")
+Chef::Log.info("#{server}")
 node.default[:redis][:slave] = "yes"
-node.default[:redis][:master_server] = server['private_ip']
+node.default[:redis][:master_server] = "#{server['private_ip']}"
 
 template "#{node[:redis][:conf_dir]}/redis.conf" do
   source        "redis.conf.erb"
