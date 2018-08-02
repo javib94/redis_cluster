@@ -1,5 +1,5 @@
 
-server = search("aws_opsworks_instance",  "hostname:masterserver")
+server = search("aws_opsworks_instance",  "hostname:masterserver").first
 Chef::Log.info("#{server}")
 node.default[:redis][:slave] = "yes"
 node.default[:redis][:master_server] = "#{server['private_ip']}"

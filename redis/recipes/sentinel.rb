@@ -1,9 +1,9 @@
 
 package 'redis-sentinel'
 
-server = search("aws_opsworks_instance",  "hostname:masterserver")
+server = search("aws_opsworks_instance",  "hostname:masterserver").first
 node.default[:redis][:master_server] = server['private_ip']
-layer_slave = search("aws_opsworks_layer", "shortname:redisslaves")
+layer_slave = search("aws_opsworks_layer", "shortname:redisslaves").first
 layer_id = layer_slave['layer_id']
 instances = search("aws_opsworks_instance", "layer_ids:#{layer_id}")
 
