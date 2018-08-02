@@ -11,8 +11,3 @@ template "#{node[:redis][:conf_dir]}/redis.conf" do
   mode          "0644"
   variables     :redis => node[:redis], :redis_server => node[:redis][:server], :master_server => node[:redis][:master_server]
 end
-
-execute 'redis-server' do
-  command "redis-server restart #{node[:redis][:conf_dir]}/redis.conf"
-  user 'root'
-end
