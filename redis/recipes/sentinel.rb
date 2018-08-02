@@ -6,7 +6,7 @@ node.default[:redis][:master_server] = server['private_ip']
 layer_slave = search("aws_opsworks_layer", "shortname:redisslaves").first
 layer_id = layer_slave['layer_id']
 instances = search("aws_opsworks_instance", "layer_ids:#{layer_id}")
-
+Chef::Log.info("#{instances}")
 
 template "#{node[:redis][:conf_dir]}/sentinel.conf" do
   source        "sentinel.conf.erb"

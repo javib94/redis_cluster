@@ -6,7 +6,7 @@ sentinel config-epoch  <%= @master_name %> 4
 sentinel leader-epoch  <%= @master_name %> 6
 
 <% @instance.each do | i | %>
-sentinel known-slave  <%= @master_name %> <%= @i['private_ip']%> <%= @port %>
+sentinel known-slave  <%= @master_name %> <%= i['private_ip']%> <%= @port %>
 <% end %>
 
 sentinel failover-timeout <%= @master_name %> 1000
