@@ -10,9 +10,8 @@ pidfile <%= @redis[:pid_file] %>
 port <%= @redis_server[:port] %>
 
 # specified all the interfaces will listen for connections.
-#bind <%= @redis_server[:addr] %>
-protected-mode no 
-
+bind <%= @redis_server[:addr] %>
+protected-mode no
 
 # Close the connection after a client is idle for N seconds.
 timeout <%= @redis_server[:timeout] %>
@@ -34,4 +33,7 @@ dir <%= @redis[:data_dir] %>
 
 <% if @redis[:slave] == "yes" %>
 slaveof <%= @redis[:master_server] %> <%= @redis[:master_port] %>
-<% end %>
+<% else %>
+appendonly yes
+appendfilename “appendonly.aof​”
+ <% end %>
