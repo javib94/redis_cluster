@@ -32,6 +32,8 @@ dbfilename <%= @redis[:db_basename] %>
 dir <%= @redis[:data_dir] %>
 
 <% if @redis[:slave] == "yes" %>
+slave-serve-stale-data yes
+slave-read-only yes
 slaveof <%= @redis[:master_server] %> <%= @redis[:master_port] %>
 <% else %>
 appendonly yes
