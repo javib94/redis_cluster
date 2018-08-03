@@ -12,6 +12,11 @@ template "#{node[:redis][:conf_dir]}/redis.conf" do
   variables     :redis => node[:redis], :redis_server => node[:redis][:server], :master_server => node[:redis][:master_server]
 end
 
+execute 'redis-cli-slave' do
+  command "redis-cli slaveof #{server['private_ip']} 6379"
+  user 'root'
+end
+
 execute 'redis-server-master' do
   command "redis-server #{node[:redis][:conf_dir]}/redis.conf"
   user 'root'
